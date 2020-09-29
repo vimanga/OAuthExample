@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>you have logged in  =  ${name}</h1>
+	<h1>you have successfully logged in</h1>
+	<h2>name : ${name}</h2>
+	<h2>email : ${email}</h2>
 </body>
 </html>

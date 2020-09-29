@@ -4,7 +4,6 @@ import java.security.Principal;
 
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,18 +30,21 @@ public class Controller {
 		JSONObject json = (JSONObject) parser.parse(userjson(principal));
 		
 		//get array inside authorities
-		JSONArray jsonnew = (JSONArray) parser.parse(json.getAsString("authorities"));
+		JSONArray jsonAuthorities = (JSONArray) parser.parse(json.getAsString("authorities"));
 		
 		//get the first element in JSON array to JSON object
-		JSONObject jsonnewnew = (JSONObject) parser.parse(jsonnew.get(0).toString());
+		JSONObject AuthoritiesFirstEliment = (JSONObject) parser.parse(jsonAuthorities.get(0).toString());
 		
 		//access the attributes section in the previous JSON object.
-		JSONObject jsonnewnewname = (JSONObject) parser.parse(jsonnewnew.getAsString("attributes"));
+		JSONObject jsonAttributes = (JSONObject) parser.parse(AuthoritiesFirstEliment.getAsString("attributes"));
 		
-		System.out.println("****************"+jsonnewnewname.getAsString("name"));
+		System.out.println("****************"+jsonAttributes.getAsString("name"));
 		
-		String name = jsonnewnewname.getAsString("name");
+		String name = jsonAttributes.getAsString("name");
+		String email = jsonAttributes.getAsString("email");
+		
 		model.put("name", name);
+		model.put("email", email);
 		ModelAndView mav = new ModelAndView("login");
 		return mav;
 	}
@@ -62,5 +64,11 @@ public class Controller {
 	    String user = mapper.writeValueAsString(principal);
 	    //System.out.println(user);
 		return user;
+	}
+	
+	@RequestMapping("test")
+	public String test() {
+
+		return "xxx";
 	}
 }
