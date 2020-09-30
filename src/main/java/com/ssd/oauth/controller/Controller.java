@@ -38,13 +38,17 @@ public class Controller {
 		//access the attributes section in the previous JSON object.
 		JSONObject jsonAttributes = (JSONObject) parser.parse(AuthoritiesFirstEliment.getAsString("attributes"));
 		
-		System.out.println("****************"+jsonAttributes.getAsString("name"));
+//		System.out.println("****************"+jsonAttributes.getAsString("family_name"));
 		
 		String name = jsonAttributes.getAsString("name");
+		String lastname = jsonAttributes.getAsString("family_name");
 		String email = jsonAttributes.getAsString("email");
+		String pic = jsonAttributes.getAsString("picture");
 		
 		model.put("name", name);
+		model.put("family_name", lastname);
 		model.put("email", email);
+		model.put("picture", pic);
 		ModelAndView mav = new ModelAndView("login");
 		return mav;
 	}
